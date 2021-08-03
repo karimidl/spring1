@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -43,8 +44,8 @@ public class Leave implements Serializable {
 	@Column(name = "duree_conje")
 	private Long dureeConge;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 
@@ -112,8 +113,10 @@ public class Leave implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Conje [id=" + id + ", TypeConje=" + typeConje + ", date_debut=" + date_debut + ", date_fin=" + date_fin
-				+ ", dureeConge=" + dureeConge  + "]";
+		return "Leave [id=" + id + ", typeConje=" + typeConje + ", date_debut=" + date_debut + ", date_fin=" + date_fin
+				+ ", dureeConge=" + dureeConge + ", employee=" + employee + "]";
 	}
+
+	
 
 }
