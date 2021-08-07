@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -55,6 +56,7 @@ public class Employee implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "employee", orphanRemoval = true)
 	private Set<Leave> leaves = new HashSet<>();
 
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "department_id")
 	private Department department;

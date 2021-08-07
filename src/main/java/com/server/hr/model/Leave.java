@@ -31,12 +31,12 @@ public class Leave implements Serializable {
 	@Column(name = "type_conje")
 	private String typeConje;
 
-	@JsonFormat(pattern = "MM/dd/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "start_time")
 	@Temporal(TemporalType.DATE)
 	private Date date_debut;
 
-	@JsonFormat(pattern = "MM/dd/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "end_time")
 	@Temporal(TemporalType.DATE)
 	private Date date_fin;
@@ -48,6 +48,12 @@ public class Leave implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
+	
+	
+	@JsonBackReference
+    @ManyToOne
+	@JoinColumn(name="typeleave_id")
+	private LeaveType leavetype;
 
 	public Leave() {
 
