@@ -1,6 +1,8 @@
 package com.server.hr.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,20 +27,20 @@ public class LeaveType implements Serializable{
 	private int nbrJour;
 	
 	
-	@JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "leave", orphanRemoval = true)
-	private Leave leave;
+	@JsonBackReference(value="ref_leave")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "leaveType", orphanRemoval = true)
+	private Set<Leave> leaves = new HashSet<>();
 
 	public LeaveType() {
 		super();
 	}
 
-	public LeaveType(Long id, String nom, int nbrJour, Leave leave) {
+	public LeaveType(Long id, String nom, int nbrJour, Set<Leave> leaves) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.nbrJour = nbrJour;
-		this.leave = leave;
+		this.leaves = leaves;
 	}
 
 	public Long getId() {
@@ -65,15 +67,18 @@ public class LeaveType implements Serializable{
 		this.nbrJour = nbrJour;
 	}
 
-	public Leave getLeave() {
-		return leave;
+	public Set<Leave> getLeaves() {
+		return leaves;
 	}
 
-	public void setLeave(Leave leave) {
-		this.leave = leave;
+	public void setLeaves(Set<Leave> leaves) {
+		this.leaves = leaves;
 	}
-	
-	
-	
 
+	@Override
+	public String toString() {
+		return "LeaveType [id=" + id + ", nom=" + nom + ", nbrJour=" + nbrJour + ", leaves=" + leaves + "]";
+	}
+
+	
 }

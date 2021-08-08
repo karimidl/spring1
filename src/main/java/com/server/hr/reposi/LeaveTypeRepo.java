@@ -11,8 +11,8 @@ public interface LeaveTypeRepo extends JpaRepository<LeaveType, Long>{
 
 	void deleteLeaveTypeById(Long id);
 
-  Optional<LeaveType> findLeaveTypeById(Long id);
+  Optional <LeaveType> findLeaveTypeById(Long id);
 
-  List<LeaveType> getLeaveTypeByIsArchived(Boolean isArchived);
+  Optional <LeaveType> findLeaveTypeByNom(String nom);
 
 }

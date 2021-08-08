@@ -51,6 +51,7 @@ public class Employee implements Serializable {
 	private String localite;
 	private String photo;
 	private Boolean isArchived = false;
+	private int leaveBalance;
 
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "employee", orphanRemoval = true)
@@ -66,7 +67,8 @@ public class Employee implements Serializable {
 
 	public Employee(Long id, String matricule, String nom, String prenom, Date date_naissance, String cin, String email,
 			String tele, String diplome, String specialite, Date hire_date, String poste_budgetaire,
-			String service_affectation, String localite, String photo, Department department) {
+			String service_affectation, String localite, String photo, Boolean isArchived, int leaveBalance,
+			Set<Leave> leaves, Department department) {
 		super();
 		this.id = id;
 		this.matricule = matricule;
@@ -83,7 +85,9 @@ public class Employee implements Serializable {
 		this.service_affectation = service_affectation;
 		this.localite = localite;
 		this.photo = photo;
-		this.leaves = new HashSet<>();
+		this.isArchived = isArchived;
+		this.leaveBalance = leaveBalance;
+		this.leaves = leaves;
 		this.department = department;
 	}
 
@@ -207,15 +211,28 @@ public class Employee implements Serializable {
 		this.photo = photo;
 	}
 
+	public Boolean getIsArchived() {
+		return isArchived;
+	}
+
+	public void setIsArchived(Boolean isArchived) {
+		this.isArchived = isArchived;
+	}
+
+	public int getLeaveBalance() {
+		return leaveBalance;
+	}
+
+	public void setLeaveBalance(int leaveBalance) {
+		this.leaveBalance = leaveBalance;
+	}
+
 	public Set<Leave> getLeaves() {
 		return leaves;
 	}
 
 	public void setLeaves(Set<Leave> leaves) {
-		this.leaves.clear();
-		if (leaves != null) {
-			this.leaves.addAll(leaves);
-		}
+		this.leaves = leaves;
 	}
 
 	public Department getDepartment() {
@@ -232,16 +249,9 @@ public class Employee implements Serializable {
 				+ ", date_naissance=" + date_naissance + ", cin=" + cin + ", email=" + email + ", tele=" + tele
 				+ ", diplome=" + diplome + ", specialite=" + specialite + ", hire_date=" + hire_date
 				+ ", poste_budgetaire=" + poste_budgetaire + ", service_affectation=" + service_affectation
-				+ ", localite=" + localite + ", photo=" + photo + ", leaves=" + leaves + ", department=" + department
-				+ "]";
+				+ ", localite=" + localite + ", photo=" + photo + ", isArchived=" + isArchived + ", leaveBalance="
+				+ leaveBalance + ", leaves=" + leaves + ", department=" + department + "]";
 	}
 
-	public Boolean getIsArchived() {
-		return isArchived;
-	}
-
-	public void setIsArchived(Boolean isArchived) {
-		this.isArchived = isArchived;
-	}
-
+	
 }

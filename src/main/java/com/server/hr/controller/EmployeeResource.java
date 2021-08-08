@@ -74,5 +74,11 @@ public class EmployeeResource {
 		emplyeeService.deleteEmployee(id);
 		return new ResponseEntity<String>("Employee is deleted successfully !!!", HttpStatus.OK);
 	}
+	
+	@PostMapping("/count")
+	public ResponseEntity<Employee> countEmployee(@RequestBody Employee employee) {
+		Employee newemployee = emplyeeService.leaveBalanceCalcul(employee);
+		return new ResponseEntity<>(newemployee, HttpStatus.CREATED);
+	}
 
 }

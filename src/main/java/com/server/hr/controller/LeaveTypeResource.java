@@ -17,7 +17,7 @@ import com.server.hr.model.LeaveType;
 import com.server.hr.service.LeaveTypeService;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/leaveType")
 
 public class LeaveTypeResource {
 	private final LeaveTypeService leaveTypeService;
@@ -29,44 +29,33 @@ public class LeaveTypeResource {
 
 	@GetMapping("/all")
 	public ResponseEntity<List<LeaveType>> getAllLeaveType() {
-		List<LeaveType> employees = leaveTypeService.findAllLeaveType();
-		return new ResponseEntity<>(employees, HttpStatus.OK);
+		List<LeaveType> leaveTypes = leaveTypeService.findAllLeaveType();
+		return new ResponseEntity<>(leaveTypes, HttpStatus.OK);
 	}
 
-	@GetMapping("/listArchived")
-	public ResponseEntity<List<LeaveType>> getArchivedLeaveTypes() {
-		List<LeaveType> employees = leaveTypeService.getLeaveTypesByIsArchived(true);
-		return new ResponseEntity<>(employees, HttpStatus.OK);
-	}
-
-	@GetMapping("/listActivated")
-	public ResponseEntity<List<LeaveType>> getActivatedLeaveTypes() {
-		List<LeaveType> employees = leaveTypeService.getLeaveTypesByIsArchived(false);
-		return new ResponseEntity<>(employees, HttpStatus.OK);
-	}
-
-	@PutMapping("/archive/{id}")
+	
+	/*@PutMapping("/archive/{id}")
 	public ResponseEntity<String> changeStatusLeaveType(@PathVariable("id") Long id) {
 		leaveTypeService.changeLeaveTypeStatus(id);
 		return new ResponseEntity<String>("LeaveType status changed successfully !!!", HttpStatus.OK);
-	}
+	}*/
 
 	@GetMapping("/find/{id}")
 	public ResponseEntity<LeaveType> getLeaveTypeById(@PathVariable("id") Long id) {
-		LeaveType employee = leaveTypeService.findLeaveTypeById(id);
-		return new ResponseEntity<>(employee, HttpStatus.OK);
+		LeaveType leaveType = leaveTypeService.findLeaveTypeById(id);
+		return new ResponseEntity<>(leaveType, HttpStatus.OK);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<LeaveType> addLeaveType(@RequestBody LeaveType employee) {
-		LeaveType newemployee = leaveTypeService.addLeaveType(employee);
-		return new ResponseEntity<>(newemployee, HttpStatus.CREATED);
+	public ResponseEntity<LeaveType> addLeaveType(@RequestBody LeaveType leaveType) {
+		LeaveType newleaveType = leaveTypeService.addLeaveType(leaveType);
+		return new ResponseEntity<>(newleaveType, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<LeaveType> updateLeaveType(@RequestBody LeaveType employee) {
-		LeaveType updateemployee = leaveTypeService.updateLeaveType(employee);
-		return new ResponseEntity<>(updateemployee, HttpStatus.OK);
+	public ResponseEntity<LeaveType> updateLeaveType(@RequestBody LeaveType leaveType) {
+		LeaveType updateleaveType = leaveTypeService.updateLeaveType(leaveType);
+		return new ResponseEntity<>(updateleaveType, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
